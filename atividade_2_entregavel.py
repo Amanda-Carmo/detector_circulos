@@ -3,6 +3,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 import math
+import matplotlib.image as mpimg
+
+foco = mpimg.imread("caculofoco.jpg")
+imgplot = plt.imshow(foco)
+plt.show()
+
+
 
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
