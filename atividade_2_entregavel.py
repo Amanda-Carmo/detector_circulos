@@ -1,5 +1,3 @@
-__author__      = "Matheus Dib, Fabio de Miranda"
-
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -160,13 +158,13 @@ if __name__ == "__main__":
                 
                 if maskm[i[1]][i[0]] > 240:
                     cv2.circle(bordas_color,(i[0],i[1]),i[2],(153,0,255),-1)     
-                    cmx = i[0]
-                    cmy = i[1]     
+                    cmx = int(i[0])
+                    cmy = int(i[1])     
                 
                 elif mask[i[1]][i[0]] > 240:
                     cv2.circle(bordas_color,(i[0],i[1]),i[2],(255,153,0),-1)
-                    ccx = i[0]
-                    ccy = i[1]
+                    ccx = int(i[0])
+                    ccy = int(i[1])
                     
                 if ccx is not None and ccy is not None and cmx is not None and cmy is not None: 
                     cv2.line(bordas_color, (ccx,ccy), (cmx,cmy), (0, 255, 0), 3)
@@ -175,15 +173,14 @@ if __name__ == "__main__":
                     
                     f = 13
       
-                    D = (f*14)/dicm
-                    
-                    print(D)
-                    
-                    #angle = np.rad2deg(np.arctan2(int(ccy) - int(cmy), int(ccx) - int(cmx)))
-                    angle = np.arctan((ccy - cmy)/(ccx - cmx))*180/np.pi
-                    
-                    #angle = np.arctan(abs(ccy - cmy), abs(ccx - cmx))*180/math.pi 
-                    
+                    D = (f*14)/dicm                
+                                                           
+                    if ccx - cmx !=0:
+                        angle = np.arctan((ccy - cmy)/(ccx - cmx))* -180/np.pi
+                        
+                    else:
+                        angle = 90
+                        
         #cv2.line(img, pt1, pt2, color[, thickness[, lineType[, shift]]])    
         #cv2.putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]])
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -197,12 +194,12 @@ if __name__ == "__main__":
             cv2.putText(bordas_color,"Angle: {0}".format(angle),(1,50), font, 0.5,(255,255,255),1,cv2.LINE_AA)
         
         # Display the resulting frame
-        #cv2.imshow('Detector de circulos',bordas_color)
+        
         cv2.putText(bordas_color,"Distance from camera: ",(1,35), font, 0.5,(255,255,255),1,cv2.LINE_AA)
         cv2.putText(bordas_color,"Angle: ",(1,50), font, 0.5,(255,255,255),1,cv2.LINE_AA)        
         
         frame_rgb = frame 
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
 
         cv2.imshow('Detector de circulos', bordas_color)
